@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ContentProvider onCreate() 在 Application onCreate() 之前执行"
+title: "ContentProvider onCreate()在 Application onCreate()之前执行"
 date: 2017-09-20 18:04:20 
 description: # Add post description (optional)
 img:  # Add image post (optional)
@@ -9,10 +9,13 @@ img:  # Add image post (optional)
 分析源码5.1.1 r1
 源码地址 http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/app/ActivityThread.java#ActivityThread.installProvider%28android.content.Context%2Candroid.app.IActivityManager.ContentProviderHolder%2Candroid.content.pm.ProviderInfo%2Cboolean%2Cboolean%2Cboolean%29  
 
+##
 主要看ActivityThread类
-```
+
+### bind Application的方法
 1.handleBindApplication(AppBindData data)
 
+### 内部代码块
 2.
 try {
 4524            // If the app is being launched for full backup or restore, bring it up in
@@ -53,7 +56,7 @@ try {
 4559                }
 4560            }
 
-
+### 跟踪 installContentProviders(app, providers)
 3.
 private void More ...installContentProviders(
 4581            Context context, List<ProviderInfo> providers) {
@@ -84,6 +87,7 @@ private void More ...installContentProviders(
 4606        }
 4607    }
 
+### 跟踪 installProvider(context, null, cpi,...
 4.
 try {
 4986                final java.lang.ClassLoader cl = c.getClassLoader();
@@ -109,6 +113,7 @@ try {
 5006                return null;
 5007            }
 
+### 跟踪 localProvider.attachInfo(c, info)
 5.
 1674    private void More ...attachInfo(Context context, ProviderInfo info, boolean testing) {
 1675        mNoPerms = testing;
@@ -135,5 +140,5 @@ try {
 1696            ContentProvider.this.onCreate();  // 调用ContentProvider onCreate()
 1697        }
 1698    }
-```
+
 通过查看源码的方式验证ContentProvider onCreate()优先执行与 Application onCreate()
