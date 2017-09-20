@@ -17,6 +17,7 @@ img:  # Add image post (optional)
 
 ### 内部代码块
 2.
+```
 try {
 4524            // If the app is being launched for full backup or restore, bring it up in
 4525            // a restricted environment with the base application class.
@@ -55,9 +56,10 @@ try {
 4558                        + ": " + e.toString(), e);
 4559                }
 4560            }
-
+```
 ### 跟踪 installContentProviders(app, providers)
 3.
+```
 private void More ...installContentProviders(
 4581            Context context, List<ProviderInfo> providers) {
 4582        final ArrayList<IActivityManager.ContentProviderHolder> results =
@@ -86,9 +88,10 @@ private void More ...installContentProviders(
 4605        } catch (RemoteException ex) {
 4606        }
 4607    }
-
+```
 ### 跟踪 installProvider(context, null, cpi,...
 4.
+```
 try {
 4986                final java.lang.ClassLoader cl = c.getClassLoader();
 4987                localProvider = (ContentProvider)cl.
@@ -112,9 +115,11 @@ try {
 5005                }
 5006                return null;
 5007            }
+```
 
 ### 跟踪 localProvider.attachInfo(c, info)
 5.
+```
 1674    private void More ...attachInfo(Context context, ProviderInfo info, boolean testing) {
 1675        mNoPerms = testing;
 1676
@@ -140,5 +145,6 @@ try {
 1696            ContentProvider.this.onCreate();  // 调用ContentProvider onCreate()
 1697        }
 1698    }
+```
 
 通过查看源码的方式验证ContentProvider onCreate()优先执行与 Application onCreate()
